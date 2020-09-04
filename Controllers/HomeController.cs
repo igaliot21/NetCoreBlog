@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http.Connections;
+using Microsoft.AspNetCore.Mvc;
+using NetCoreBlog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,19 @@ namespace NetCoreBlog.Controllers
 
             return View();
         }
-        public IActionResult Post()
-        {
+        public IActionResult Post(){
 
             return View();
+        }
+        [HttpGet]
+        public IActionResult Edit(){
+
+            return View(new Post());
+        }
+        [HttpPost]
+        public IActionResult Edit(Post post){
+
+            return RedirectToAction("Index");
         }
     }
 }
