@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using NetCoreBlog.Controllers.Repository;
 using NetCoreBlog.Data;
 
 namespace NetCoreBlog
@@ -24,6 +25,8 @@ namespace NetCoreBlog
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddTransient<IRepository, Repository>();
 
             services.AddMvc();
         }

@@ -16,5 +16,12 @@ namespace NetCoreBlog.Models
         [Required]
         public string Body { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
+        public DateTime Updated { get; set; } = DateTime.Now;
+
+        public Post(){}
+        public Post(string Title, string Body){
+            this.Title = Title;
+            this.Body = Body;
+        }
     }
 }
