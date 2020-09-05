@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.Connections;
 using Microsoft.AspNetCore.Mvc;
+using NetCoreBlog.Data;
 using NetCoreBlog.Models;
 using System;
 using System.Collections.Generic;
@@ -11,6 +12,12 @@ namespace NetCoreBlog.Controllers
 {
     public class HomeController : Controller
     {
+        private AppDbContext context;
+        public HomeController(AppDbContext Context)
+        {
+            this.context = Context;
+        }
+
         public IActionResult Index() {
 
             return View();
@@ -25,7 +32,10 @@ namespace NetCoreBlog.Controllers
             return View(new Post());
         }
         [HttpPost]
-        public IActionResult Edit(Post post){
+        public async Task<IActionResult> Edit(Post post){
+
+            this.context.Posts.Add(post);
+            await this.context.SaveChangesAsync();
 
             return RedirectToAction("Index");
         }

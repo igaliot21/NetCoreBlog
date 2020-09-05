@@ -9,7 +9,6 @@ namespace NetCoreBlog.Models
 {
     public class Post
     {
-        [Required]
         public int Id { get; set; }
         [Required]
         [MaxLength(512)]
