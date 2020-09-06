@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreBlog.Controllers.Repository;
 using NetCoreBlog.Data;
+using NetCoreBlog.Models;
 
 namespace NetCoreBlog
 {
@@ -26,6 +28,16 @@ namespace NetCoreBlog
         {
             services.AddDbContext<AppDbContext>(options =>options.UseSqlServer(this.configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDefaultIdentity<AppUser>(options => {
+                    options.Password.RequireDigit = false;
+                    options.Password.RequireLowercase = false;
+                    options.Password.RequireNonAlphanumeric = false;
+                    options.Password.RequireUppercase = false;
+                    options.Password.RequiredLength = 6;
+                })
+                .AddRoles<IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
             services.AddTransient<IRepository, Repository>();
 
             services.AddMvc();
@@ -38,6 +50,8 @@ namespace NetCoreBlog
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseAuthentication();
 
             app.UseMvcWithDefaultRoute();
 
