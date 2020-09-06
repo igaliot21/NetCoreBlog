@@ -20,22 +20,42 @@ namespace NetCoreBlog.Controllers
         }
 
         public IActionResult Index() {
-
-            return View();
+            var posts = repository.GetAllPost();
+            return View(posts);
         }
-        public IActionResult Post(){
-
-            return View();
+        public IActionResult Post(int Id){
+            var post = repository.getPost(Id);
+            return View(post);
         }
         [HttpGet]
-        public IActionResult Edit(){
-
-            return View(new Post());
+        public IActionResult Edit(int? Id){
+            if (Id == null) return View(new Post());
+            else {
+                var post = repository.getPost((int)Id);
+                return View(post);
+            } 
         }
         [HttpPost]
         public async Task<IActionResult> Edit(Post post){
-            this.repository.AddPost(post);
-            if (await this.repository.SaveChangesAsync()) return RedirectToAction("Index");
+            if (post.Id != 0)
+                repository.UpdatePost(post);
+            else
+                repository.AddPost(post);
+
+            if (await repository.SaveChangesAsync()) return RedirectToAction("Index");
+            else return View(post);
+        }
+        [HttpGet]
+        public IActionResult Remove(int Id)
+        {
+            var post = repository.getPost(Id);
+            return View(post);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Remove(Post post)
+        {
+            repository.RemovePost(post.Id);
+            if (await repository.SaveChangesAsync()) return RedirectToAction("Index");
             else return View(post);
         }
     }

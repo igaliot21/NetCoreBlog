@@ -1,0 +1,16 @@
+﻿@model Post
+
+@{
+
+}
+
+<div>
+    <form asp-controller="Home" asp-action="Remove" method="post">
+        <input asp-for="Id" type="hidden" />
+        <h2>@Model.Title</h2>
+        <p>@Model.Body</p>
+        <p>Delete post?</p>
+        <input type="submit" value="Delete" />
+        <a asp-controller="Home" asp-action="Index">Return to Index</a>
+    </form>
+</div>

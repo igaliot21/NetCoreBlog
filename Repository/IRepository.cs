@@ -13,7 +13,7 @@ namespace NetCoreBlog.Controllers.Repository
         List<Post> GetAllPost();
         List<Post> GetPostDates(DateTime Initial, DateTime End);
         bool RemovePost(int Id);
-        bool UpdatePost(int Id, Post post);
+        bool UpdatePost(Post post);
         void AddPost(Post post);
         Task<bool> SaveChangesAsync();
     }

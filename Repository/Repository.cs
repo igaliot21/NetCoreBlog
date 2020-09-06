@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.EntityFrameworkCore;
 using NetCoreBlog.Data;
 using NetCoreBlog.Models;
 using System;
@@ -19,28 +20,33 @@ namespace NetCoreBlog.Controllers.Repository
         
         public Post getPost(int Id){
             var postToReturn = this.context.Posts.FirstOrDefault(p => p.Id == Id);
-            if (postToReturn == null) return new Post("Post Not Found", "Post Not Found");
-            else return postToReturn;
+            if (postToReturn == null) postToReturn = new Post("Post Not Found", "Post Not Found");
+            
+            return postToReturn;
         }
         
         public List<Post> GetAllPost(){
-            return this.context.Posts.ToList();
+            var posts = this.context.Posts.ToList();
+            if (posts.Count == 0) posts.Add(new Post("No Posts found", "No Posts found"));
+            
+            return posts;
         }
         
         public List<Post> GetPostDates(DateTime Initial, DateTime End){
-            return this.context.Posts.Where(p => p.Created >= Initial && p.Created <= End).ToList();
+            var posts = this.context.Posts.Where(p => p.Created >= Initial && p.Created <= End).ToList();
+            if (posts.Count == 0) posts.Add(new Post("No Posts found", "No Posts found"));
+            
+            return posts;
         }
 
         public void AddPost(Post post){
             this.context.Posts.Add(post);
         }
 
-        public bool UpdatePost(int Id, Post post){
-            var postToUpdate = this.context.Posts.FirstOrDefault(p => p.Id == Id);
+        public bool UpdatePost(Post post){
+            var postToUpdate = this.context.Posts.FirstOrDefault(p => p.Id == post.Id);
             
             if (postToUpdate == null) return false;
-            
-            if (postToUpdate.Id != post.Id) return false;
             
             postToUpdate.Title = post.Title;
             postToUpdate.Body = post.Body;
