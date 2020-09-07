@@ -7,6 +7,8 @@
   <ItemGroup>
     <Content Remove="Views\Home\Index.cshtml" />
     <Content Remove="Views\Home\Post.cshtml" />
+    <Content Remove="Views\Panel\Index.cshtml" />
+    <Content Remove="Views\Panel\Post.cshtml" />
   </ItemGroup>
 
   <ItemGroup>
@@ -16,6 +18,8 @@
   <ItemGroup>
     <None Include="Views\Home\Post.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
+    <None Include="Views\Panel\Index.cshtml" />
+    <None Include="Views\Panel\Post.cshtml" />
   </ItemGroup>
 
   <ItemGroup>

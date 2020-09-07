@@ -25,7 +25,10 @@ namespace NetCoreBlog.Controllers
         public async Task<IActionResult> Login(LoginViewModel vm)
         {
             var result = await this.signInManager.PasswordSignInAsync(vm.UserName, vm.Password, false, false);
-            return RedirectToAction("Index","Home");
+            if (result.Succeeded)
+                return RedirectToAction("Index", "Home");
+            else
+                return View(vm);
         }
         [HttpGet]
         public async Task<IActionResult> Logout()
