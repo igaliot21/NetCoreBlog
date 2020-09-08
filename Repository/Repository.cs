@@ -50,6 +50,7 @@ namespace NetCoreBlog.Controllers.Repository
             
             postToUpdate.Title = post.Title;
             postToUpdate.Body = post.Body;
+            postToUpdate.Image = post.Image;
             postToUpdate.Updated = DateTime.Now;
             
             this.context.Posts.Update(postToUpdate);

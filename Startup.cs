@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NetCoreBlog.Controllers.Repository;
 using NetCoreBlog.Data;
+using NetCoreBlog.ArchivesManager;
 using NetCoreBlog.Models;
 
 namespace NetCoreBlog
@@ -43,6 +44,7 @@ namespace NetCoreBlog
             });
 
             services.AddTransient<IRepository, Repository>();
+            services.AddTransient<IFileManager, FileManager>();
 
             services.AddMvc();
         }
@@ -54,6 +56,8 @@ namespace NetCoreBlog
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseStaticFiles();
 
             app.UseAuthentication();
 

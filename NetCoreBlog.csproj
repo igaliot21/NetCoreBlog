@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="Views\Home\Post.cshtml" />
     <None Include="Views\Home\Index.cshtml" />
     <None Include="Views\Panel\Index.cshtml" />
@@ -37,6 +33,11 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="2.1.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.10" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\content\blog\images\" />
+    <Folder Include="wwwroot\content\blog\videos\" />
   </ItemGroup>
 
 </Project>

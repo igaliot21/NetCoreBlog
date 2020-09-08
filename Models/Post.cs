@@ -15,6 +15,7 @@ namespace NetCoreBlog.Models
         public string Title { get; set; } = string.Empty;
         [Required]
         public string Body { get; set; } = string.Empty;
+        public string Image { get; set; } = string.Empty;
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;
 
@@ -22,6 +23,17 @@ namespace NetCoreBlog.Models
         public Post(string Title, string Body){
             this.Title = Title;
             this.Body = Body;
+        }
+        public Post(string Title, string Body, string Image){
+            this.Title = Title;
+            this.Body = Body;
+            this.Image = Image;
+        }
+        public Post(int Id, string Title, string Body, string Image){
+            this.Id = Id;
+            this.Title = Title;
+            this.Body = Body;
+            this.Image = Image;
         }
     }
 }
