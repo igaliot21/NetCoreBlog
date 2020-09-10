@@ -41,6 +41,7 @@ namespace NetCoreBlog.Controllers
                     Id = post.Id,
                     Title = post.Title,
                     Body = post.Body,
+                    CurrentImage = post.Image,
                     Created = post.Created,
                     Updated = post.Updated
                 }) ;
@@ -50,6 +51,12 @@ namespace NetCoreBlog.Controllers
         public async Task<IActionResult> Edit(PostViewModel vm)
         {
             var post = new Post(vm.Id,vm.Title,vm.Body,await fileManager.SaveImage(vm.Image));
+
+            if (vm.Image == null)
+                post.Image = vm.CurrentImage;
+            else
+                post.Image = await fileManager.SaveImage(vm.Image);
+
             if (post.Id != 0)
                 repository.UpdatePost(post);
             else

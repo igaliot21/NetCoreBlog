@@ -12,6 +12,7 @@ namespace NetCoreBlog.ViewModel
         public int Id { get; set; }
         public string Title { get; set; } = string.Empty;
         public string Body { get; set; } = string.Empty;
+        public string CurrentImage { get; set; } = string.Empty;
         public IFormFile Image { get; set; } = null;
         public DateTime Created { get; set; } = DateTime.Now;
         public DateTime Updated { get; set; } = DateTime.Now;

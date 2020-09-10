@@ -26,23 +26,27 @@ namespace NetCoreBlog.ArchivesManager
         {
             try
             {
-                var save_path = Path.Combine(imagePath);
-                if (!Directory.Exists(save_path))
+                if (image != null)
                 {
-                    Directory.CreateDirectory(save_path);
+                    var save_path = Path.Combine(imagePath);
+                    if (!Directory.Exists(save_path))
+                    {
+                        Directory.CreateDirectory(save_path);
+                    }
+
+                    //internet explorer error 
+                    //var filename = image.FileName;
+
+                    var mime = image.FileName.Substring(image.FileName.LastIndexOf('.'));
+                    var imageName = $"img_{Guid.NewGuid().ToString()}{mime}";
+
+                    using (var filestream = new FileStream(Path.Combine(save_path, imageName), FileMode.Create))
+                    {
+                        await image.CopyToAsync(filestream);
+                    }
+                    return imageName;
                 }
-
-                //internet explorer error 
-                //var filename = image.FileName;
-
-                var mime = image.FileName.Substring(image.FileName.LastIndexOf('.'));
-                var imageName = $"img_{Guid.NewGuid().ToString()}{mime}";
-
-                using (var filestream = new FileStream(Path.Combine(save_path, imageName), FileMode.Create))
-                {
-                    await image.CopyToAsync(filestream);
-                }
-                return imageName;
+                else return string.Empty;
             }
             catch (Exception e) {
                 Console.WriteLine(e.Message);
