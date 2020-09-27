@@ -31,7 +31,15 @@ namespace NetCoreBlog.Controllers.Repository
             
             return posts;
         }
-        
+
+        public List<Post> GetAllPost(string Category)
+        {
+            var posts = this.context.Posts.Where(p => p.Category.ToLower().Equals(Category.ToLower())).ToList();
+            if (posts.Count == 0) posts.Add(new Post("No Posts found", "No Posts found"));
+
+            return posts;
+        }
+
         public List<Post> GetPostDates(DateTime Initial, DateTime End){
             var posts = this.context.Posts.Where(p => p.Created >= Initial && p.Created <= End).ToList();
             if (posts.Count == 0) posts.Add(new Post("No Posts found", "No Posts found"));
@@ -52,6 +60,9 @@ namespace NetCoreBlog.Controllers.Repository
             postToUpdate.Body = post.Body;
             postToUpdate.Image = post.Image;
             postToUpdate.Updated = DateTime.Now;
+            postToUpdate.Description = post.Description;
+            postToUpdate.Tags = post.Tags;
+            postToUpdate.Category = post.Category;
             
             this.context.Posts.Update(postToUpdate);
             return true;

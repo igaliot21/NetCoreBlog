@@ -43,14 +43,17 @@ namespace NetCoreBlog.Controllers
                     Body = post.Body,
                     CurrentImage = post.Image,
                     Created = post.Created,
-                    Updated = post.Updated
+                    Updated = post.Updated,
+                    Description = post.Description,
+                    Tags = post.Tags,
+                    Category = post.Category
                 }) ;
             }
         }
         [HttpPost]
         public async Task<IActionResult> Edit(PostViewModel vm)
         {
-            var post = new Post(vm.Id,vm.Title,vm.Body,await fileManager.SaveImage(vm.Image));
+            var post = new Post(vm.Id,vm.Title,vm.Body,await fileManager.SaveImage(vm.Image),vm.Description,vm.Tags,vm.Category);
 
             if (vm.Image == null)
                 post.Image = vm.CurrentImage;

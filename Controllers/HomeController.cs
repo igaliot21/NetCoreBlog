@@ -22,8 +22,15 @@ namespace NetCoreBlog.Controllers
             this.fileManager = FileManager;
         }
 
-        public IActionResult Index() {
-            var posts = repository.GetAllPost();
+        public IActionResult Index(string Category) {
+            /*
+            List<Post> posts;
+
+            if (string.IsNullOrEmpty(Category)) posts = repository.GetAllPost();
+            else posts = repository.GetAllPost(Category);
+            */
+            var posts = string.IsNullOrEmpty(Category) ? repository.GetAllPost() : repository.GetAllPost(Category); // boolean ? true : false; 1=1? run : ignore;
+
             return View(posts);
         }
         public IActionResult Post(int Id){

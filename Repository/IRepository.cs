@@ -11,6 +11,7 @@ namespace NetCoreBlog.Controllers.Repository
     {
         Post getPost(int Id);
         List<Post> GetAllPost();
+        List<Post> GetAllPost(string Category);
         List<Post> GetPostDates(DateTime Initial, DateTime End);
         bool RemovePost(int Id);
         bool UpdatePost(Post post);
