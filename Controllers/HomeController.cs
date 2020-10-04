@@ -22,13 +22,12 @@ namespace NetCoreBlog.Controllers
             this.fileManager = FileManager;
         }
 
+        /*
         public IActionResult Index(string Category) {
-            /*
-            List<Post> posts;
+            //List<Post> posts;
 
-            if (string.IsNullOrEmpty(Category)) posts = repository.GetAllPost();
-            else posts = repository.GetAllPost(Category);
-            */
+            //if (string.IsNullOrEmpty(Category)) posts = repository.GetAllPost();
+            //else posts = repository.GetAllPost(Category);
             var posts = string.IsNullOrEmpty(Category) ? repository.GetAllPost() : repository.GetAllPost(Category); // boolean ? true : false; 1=1? run : ignore;
 
             return View(posts);
@@ -42,5 +41,13 @@ namespace NetCoreBlog.Controllers
             var mime = image.Substring(image.LastIndexOf('.') + 1);
             return new FileStreamResult(fileManager.ImageStream(image), $"image/{mime}");
         }
+        */
+
+        public IActionResult Index(string Category) => View(string.IsNullOrEmpty(Category) ? repository.GetAllPost() : repository.GetAllPost(Category));
+
+        public IActionResult Post(int Id) => View(repository.getPost(Id));
+        
+        [HttpGet("/Image/{image}")]
+        public IActionResult Image(string image) => new FileStreamResult(fileManager.ImageStream(image), $"image/{image.Substring(image.LastIndexOf('.') + 1)}");
     }
 }
