@@ -30,6 +30,8 @@ namespace NetCoreBlog
 
                 context.Database.EnsureCreated();
 
+                // test
+
                 var adminRole = new IdentityRole("Admin");
                 if (!context.Roles.Any())
                 {
